@@ -10,6 +10,8 @@ Run the symfony server : ```symfony serve -d```
 
 Initialize a new day : ```php bin/console generate:day X``` where X is the day number
 
+Run php-cs-fixer : ```vendor/bin/php-cs-fixer fix```
+
 Run the tests : 
 ```vendor/bin/phpunit``` (unit)
 ```vendor/bin/behat``` (functional)

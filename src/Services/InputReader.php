@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace App\Services;
 
@@ -12,10 +12,6 @@ class InputReader
         $this->fileDir = $fileDir;
     }
 
-    /**
-     * @param string $file
-     * @return array
-     */
     public function getInput(string $file): array
     {
         $inputs = [];
@@ -31,10 +27,6 @@ class InputReader
         return $inputs;
     }
 
-    /**
-     * @param string $file
-     * @return array
-     */
     public function getInputRTrimmed(string $file): array
     {
         $inputs = [];

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Tests\Services;
 
@@ -6,10 +7,13 @@ use App\Services\Day1Services;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class Day1ServicesTest extends TestCase
+/**
+ * @internal
+ */
+final class Day1ServicesTest extends TestCase
 {
     #[DataProvider('retrieveCalibrationDataProvider')]
-    public function testRetrieveCalibration(string $string, array $expectedResult): void
+    public function test_retrieve_calibration(string $string, array $expectedResult): void
     {
         $day1Service = new Day1Services();
         self::assertSame($expectedResult, $day1Service->retrieveCalibration([$string]));
@@ -21,8 +25,9 @@ class Day1ServicesTest extends TestCase
         yield 'repeated number case 2' => ['4', [44]];
         yield 'Simple case' => ['eight124two9', [19]];
     }
+
     #[DataProvider('retrieveCalibrationWithLettersDataProvider')]
-    public function testRetrieveCalibrationWithLetters(string $string, array $expectedResult): void
+    public function test_retrieve_calibration_with_letters(string $string, array $expectedResult): void
     {
         $day1Service = new Day1Services();
         self::assertSame($expectedResult, $day1Service->retrieveCalibrationWithLetters([$string]));

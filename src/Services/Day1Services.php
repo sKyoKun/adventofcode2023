@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services;
 
@@ -22,27 +23,27 @@ class Day1Services
         6 => 6,
         7 => 7,
         8 => 8,
-        9 => 9
+        9 => 9,
     ];
 
-    public function retrieveCalibration(array $input) : array
+    public function retrieveCalibration(array $input): array
     {
         $numbersPerLine = [];
 
         foreach ($input as $lineNumber => $line) {
             preg_match_all('#\d#', $line, $matches);
             if (1 < count($matches[0])) {
-                $numbersPerLine[$lineNumber] = intval(array_shift($matches[0]).array_pop($matches[0]));
+                $numbersPerLine[$lineNumber] = (int) (array_shift($matches[0]) . array_pop($matches[0]));
             } else {
                 $doubleSameDigit = array_shift($matches[0]);
-                $numbersPerLine[$lineNumber] = intval($doubleSameDigit.$doubleSameDigit);
+                $numbersPerLine[$lineNumber] = (int) ($doubleSameDigit . $doubleSameDigit);
             }
         }
 
         return $numbersPerLine;
     }
 
-    public function retrieveCalibrationWithLetters(array $input) : array
+    public function retrieveCalibrationWithLetters(array $input): array
     {
         $numbersPerLine = [];
 
@@ -52,26 +53,26 @@ class Day1Services
             $lastNumber = null;
 
             // We cant use regex as there is some nested words in the payload like eightwo (82)
-            for($i=0; $i < strlen($line); $i++) {
+            for ($i = 0; $i < strlen($line); ++$i) {
                 $currentWord .= $line[$i];
                 $matches = null;
                 preg_match('#\d|one|two|three|four|five|six|seven|eight|nine#', $currentWord, $matches);
-                if($matches) {
+                if ($matches) {
                     $firstNumber = self::SEARCHED_VALUES[$matches[0]];
                 }
             }
 
             $currentWord = '';
-            for($j=(strlen($line)-1); $j >=0; $j--) {
-                $currentWord = $line[$j].$currentWord;
+            for ($j = (strlen($line) - 1); $j >= 0; --$j) {
+                $currentWord = $line[$j] . $currentWord;
                 preg_match('#\d|one|two|three|four|five|six|seven|eight|nine#', $currentWord, $matches);
-                if($matches) {
+                if ($matches) {
                     $lastNumber = self::SEARCHED_VALUES[$matches[0]];
                     break;
                 }
             }
 
-            $numbersPerLine[$lineNumber] = intval($firstNumber.$lastNumber);
+            $numbersPerLine[$lineNumber] = (int) ($firstNumber . $lastNumber);
         }
 
         return $numbersPerLine;

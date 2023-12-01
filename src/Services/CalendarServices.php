@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace App\Services;
 
@@ -11,7 +11,7 @@ class CalendarServices
         foreach ($lines as $key => $line) {
             $arrLine = explode(',', $line);
             foreach ($arrLine as $keyLine => $number) {
-                $arrLine[$keyLine] = (int)$number;
+                $arrLine[$keyLine] = (int) $number;
             }
             $finalArray[$key] = $arrLine;
         }
@@ -38,7 +38,7 @@ class CalendarServices
         $finalArray = [];
 
         foreach ($lines as $key => $line) {
-            $arrLine = explode(' ',$line);
+            $arrLine = explode(' ', $line);
             $finalArray[$key] = $arrLine;
         }
 
