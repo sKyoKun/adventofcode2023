@@ -31,9 +31,9 @@ class Day1Controller extends AbstractController
     {
         $lines = $this->inputReader->getInput($file.'.txt');
 
-        $totalCaloriesPerElves = $this->day1services->countCaloriesPerElves($lines);
+        $calibrationNumberPerLine = $this->day1services->retrieveCalibration($lines);
 
-        return new JsonResponse(max($totalCaloriesPerElves), Response::HTTP_OK);
+        return new JsonResponse(array_sum($calibrationNumberPerLine), Response::HTTP_OK);
     }
 
     #[Route('/2/{file}', name: 'day1_2', defaults: ["file"=>"day1"])]
@@ -41,11 +41,8 @@ class Day1Controller extends AbstractController
     {
         $lines = $this->inputReader->getInput($file.'.txt');
 
-        $totalCaloriesPerElves = $this->day1services->countCaloriesPerElves($lines);
+        $calibrationNumberPerLine = $this->day1services->retrieveCalibrationWithLetters($lines);
 
-        rsort($totalCaloriesPerElves);
-        $top3mostCalories = $totalCaloriesPerElves[0] + $totalCaloriesPerElves[1] + $totalCaloriesPerElves[2];
-
-        return new JsonResponse($top3mostCalories, Response::HTTP_OK);
+        return new JsonResponse(array_sum($calibrationNumberPerLine), Response::HTTP_OK);
     }
 }
