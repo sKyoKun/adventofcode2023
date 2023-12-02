@@ -37,6 +37,9 @@ class Day2Controller extends AbstractController
     {
         $lines = $this->inputReader->getInput($file . '.txt');
 
-        return new JsonResponse('', Response::HTTP_NOT_ACCEPTABLE);
+        $setsOfCubes = $this->day2services->getSetsOfCubes($lines);
+        $totalPower = $this->day2services->calculatePower($setsOfCubes);
+
+        return new JsonResponse($totalPower, Response::HTTP_OK);
     }
 }

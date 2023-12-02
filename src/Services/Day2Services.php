@@ -27,6 +27,21 @@ class Day2Services
         return $sum;
     }
 
+    public function calculatePower(array $games): int
+    {
+        $sum = 0;
+        foreach ($games as $game) {
+            $maxGreen = max($game['green']);
+            $maxRed = max($game['red']);
+            $maxBlue = max($game['blue']);
+
+            $gamePower = $maxBlue * $maxRed * $maxGreen;
+            $sum += $gamePower;
+        }
+
+        return $sum;
+    }
+
     public function getSetsOfCubes(array $lines): array
     {
         $setsPerGame = [];
@@ -45,19 +60,19 @@ class Day2Services
                     preg_match('#(\d+) green#', $set, $matchGreen);
                     if ($matchGreen) {
                         array_shift($matchGreen); // remove the whole string
-                        $setsPerGame[$gameNumber]['green'][] = $matchGreen[0];
+                        $setsPerGame[$gameNumber]['green'][] = (int) $matchGreen[0];
                     }
 
                     preg_match('#(\d+) red#', $set, $matchRed);
                     if ($matchRed) {
                         array_shift($matchRed); // remove the whole string
-                        $setsPerGame[$gameNumber]['red'][] = $matchRed[0];
+                        $setsPerGame[$gameNumber]['red'][] = (int) $matchRed[0];
                     }
 
                     preg_match('#(\d+) blue#', $set, $matchBlue);
                     if ($matchBlue) {
                         array_shift($matchBlue); // remove the whole string
-                        $setsPerGame[$gameNumber]['blue'][] = $matchBlue[0];
+                        $setsPerGame[$gameNumber]['blue'][] = (int) $matchBlue[0];
                     }
                 }
             }
