@@ -6,6 +6,7 @@ namespace App\Services;
 class Day7Services
 {
     public const CARD_VALUES = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
+    public const CARD_VALUES_WITH_JOKER = ['A', 'K', 'Q', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J'];
     public const RANK_VALUES = [
         'FiveKind' => 0,
         'FourKind' => 1,
@@ -16,12 +17,14 @@ class Day7Services
         'HighCard' => 6,
     ];
 
+    private bool $useJoker = false;
+
     public function parseHandAndBid(array $lines)
     {
         $handAndBid = [];
         foreach ($lines as $line) {
             $explodedLine = explode(' ', $line);
-            $handAndBid[(string) $explodedLine[0]] = (int)$explodedLine[1];
+            $handAndBid['' . $explodedLine[0]] = (int) $explodedLine[1];
         }
 
         return $handAndBid;
@@ -50,13 +53,15 @@ class Day7Services
     {
         $rankValueA = self::RANK_VALUES[$this->determineHandType($handA)];
         $rankValueB = self::RANK_VALUES[$this->determineHandType($handB)];
+
+        $cardValues = $this->useJoker ? self::CARD_VALUES_WITH_JOKER : self::CARD_VALUES;
         if ($rankValueA === $rankValueB) {
             for ($i = 0; $i < strlen($handA); ++$i) {
-                if (array_search($handA[$i], self::CARD_VALUES, true) === array_search($handB[$i], self::CARD_VALUES, true)) {
+                if (array_search($handA[$i], $cardValues, true) === array_search($handB[$i], $cardValues, true)) {
                     continue;
                 }
 
-                return (array_search($handA[$i], self::CARD_VALUES, true) < array_search($handB[$i], self::CARD_VALUES, true)) ? -1 : 1;
+                return (array_search($handA[$i], $cardValues, true) < array_search($handB[$i], $cardValues, true)) ? -1 : 1;
             }
         }
 
@@ -68,6 +73,16 @@ class Day7Services
         $values = [];
         for ($i = 0; $i < strlen($hand); ++$i) {
             $values[$hand[$i]] = (isset($values[$hand[$i]])) ? $values[$hand[$i]] + 1 : 1;
+        }
+        if ($this->useJoker) {
+            if (array_key_exists('J', $values)) {
+                $numberOfJ = $values['J'];
+                if (5 !== $numberOfJ) { // handle case of JJJJJ
+                    unset($values['J']);
+                    $keyMax = array_search(max($values), $values, true);
+                    $values[$keyMax] += $numberOfJ;
+                }
+            }
         }
         if (1 === count($values)) {
             return 'FiveKind';
@@ -88,5 +103,10 @@ class Day7Services
         } else {
             return 'HighCard';
         }
+    }
+
+    public function setUseJoker(bool $useJoker): void
+    {
+        $this->useJoker = $useJoker;
     }
 }

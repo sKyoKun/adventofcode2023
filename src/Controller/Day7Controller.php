@@ -39,6 +39,13 @@ class Day7Controller extends AbstractController
     {
         $lines = $this->inputReader->getInput($file . '.txt');
 
-        return new JsonResponse('', Response::HTTP_NOT_ACCEPTABLE);
+        $this->day7services->setUseJoker(true);
+
+        $handsAndBids = $this->day7services->parseHandAndBid($lines);
+        $handsAndBids = $this->day7services->sortHands($handsAndBids);
+
+        $totalWinnings = $this->day7services->calculateTotalWinning($handsAndBids);
+
+        return new JsonResponse($totalWinnings, Response::HTTP_OK);
     }
 }
