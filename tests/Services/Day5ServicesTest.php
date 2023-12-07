@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Tests\Services;
 
@@ -6,17 +7,21 @@ use App\Services\Day5Services;
 use App\Services\InputReader;
 use PHPUnit\Framework\TestCase;
 
-class Day5ServicesTest extends TestCase
+/**
+ * @internal
+ */
+final class Day5ServicesTest extends TestCase
 {
     private array $lines;
 
-    public function setUp() : void{
-      parent::setUp();
+    protected function setUp(): void
+    {
+        parent::setUp();
         $inputReader = new InputReader('public/Files/');
         $this->lines = $inputReader->getInput('day5test.txt');
     }
 
-    public function testGetSeeds()
+    public function test_get_seeds(): void
     {
         $seedLine = 'seeds: 79 14 55 13';
         $day5service = new Day5Services();
@@ -24,7 +29,7 @@ class Day5ServicesTest extends TestCase
         self::assertSame(['79', '14', '55', '13'], $day5service->getSeeds([$seedLine]));
     }
 
-    public function testGetSeedsToSoilMap()
+    public function test_get_seeds_to_soil_map(): void
     {
         $day5service = new Day5Services();
 
@@ -37,13 +42,13 @@ class Day5ServicesTest extends TestCase
         );
     }
 
-    public function testGetSoilToFertilizeMap()
+    public function test_get_soil_to_fertilize_map(): void
     {
         $day5service = new Day5Services();
 
         self::assertSame(
             [
-                ['0','15', '37'],
+                ['0', '15', '37'],
                 ['37', '52', '2'],
                 ['39', '0', '15'],
             ],

@@ -5,14 +5,13 @@ namespace App\Tests\Services;
 
 use App\Services\Day4Services;
 use PHPUnit\Framework\TestCase;
-use function PHPUnit\Framework\assertSame;
 
 /**
  * @internal
  */
 final class Day4ServicesTest extends TestCase
 {
-    public const INPUT =  [
+    public const INPUT = [
         'Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53',
         'Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19',
         'Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1',
@@ -20,7 +19,8 @@ final class Day4ServicesTest extends TestCase
         'Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36',
         'Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11',
     ];
-    public function testGetCards()
+
+    public function test_get_cards(): void
     {
         $day4Service = new Day4Services();
 
@@ -37,7 +37,7 @@ final class Day4ServicesTest extends TestCase
         );
     }
 
-    public function testCalculatePoints()
+    public function test_calculate_points(): void
     {
         $day4Service = new Day4Services();
         $games = $day4Service->getCards(self::INPUT);
@@ -45,7 +45,7 @@ final class Day4ServicesTest extends TestCase
         self::assertSame(13, $day4Service->calculatePoints($games));
     }
 
-    public function testCalculateScratchboards()
+    public function test_calculate_scratchboards(): void
     {
         $day4Service = new Day4Services();
         $games = $day4Service->getCards(self::INPUT);

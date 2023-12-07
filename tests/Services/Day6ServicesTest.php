@@ -1,11 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Tests\Services;
 
-use App\Services\Day6Services;
 use PHPUnit\Framework\TestCase;
 
-class Day6ServicesTest extends TestCase
-{
-
-}
+/**
+ * @internal
+ */
+final class Day6ServicesTest extends TestCase {}

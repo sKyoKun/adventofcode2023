@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services;
 
@@ -30,9 +31,9 @@ class Day6Services
     public function getWaysToBeatRecord(int $time, int $distance): int
     {
         $waysToBeatRaceRecord = 0;
-        for ($i = 0; $i <= $time; $i++) {
+        for ($i = 0; $i <= $time; ++$i) {
             if (($time - $i) * $i > $distance) {
-                $waysToBeatRaceRecord++;
+                ++$waysToBeatRaceRecord;
             }
         }
 

@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Services\InputReader;
 use App\Services\Day6Services;
+use App\Services\InputReader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,15 +16,15 @@ class Day6Controller extends AbstractController
     public function __construct(
         private InputReader $inputReader,
         private Day6Services $day6services
-    ){
+    ) {
         $this->inputReader = $inputReader;
         $this->day6services = $day6services;
     }
 
-    #[Route('/1/{file}', name: 'day6_1', defaults: ["file"=>"day6"])]
+    #[Route('/1/{file}', name: 'day6_1', defaults: ['file' => 'day6'])]
     public function part1(string $file): JsonResponse
     {
-        $lines = $this->inputReader->getInput($file.'.txt');
+        $lines = $this->inputReader->getInput($file . '.txt');
 
         $races = $this->day6services->getRaces($lines);
         $waysToBeatRecords = [];
@@ -34,10 +35,10 @@ class Day6Controller extends AbstractController
         return new JsonResponse(array_product($waysToBeatRecords), Response::HTTP_OK);
     }
 
-    #[Route('/2/{file}', name: 'day6_2', defaults: ["file"=>"day6"])]
+    #[Route('/2/{file}', name: 'day6_2', defaults: ['file' => 'day6'])]
     public function part2(string $file): JsonResponse
     {
-        $lines = $this->inputReader->getInput($file.'.txt');
+        $lines = $this->inputReader->getInput($file . '.txt');
 
         $race = $this->day6services->getRace($lines);
         $waysToBeatRecord = [];

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services;
 
@@ -55,8 +56,9 @@ class Day5Services
                 $source = (int) $line[1];
                 $range = (int) $line[2];
 
-                if ($source <= $seed && $seed <= ($source+$range)) {
-                    $seed = $destination+($seed-$source);
+                if ($source <= $seed && $seed <= ($source + $range)) {
+                    $seed = $destination + ($seed - $source);
+
                     continue 2; // we found our seed, let's check the next one
                 }
             }
@@ -70,6 +72,7 @@ class Day5Services
         foreach ($lines as $line) {
             if ($mapName === $line) {
                 $read = true;
+
                 continue;
             }
 
