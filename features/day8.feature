@@ -9,6 +9,6 @@ Feature:
         And the response should be "6"
 
     Scenario: Check part2
-        When I request "/day8/2/day8test" using HTTP method "GET"
+        When I request "/day8/2/day8-2test" using HTTP method "GET"
         Then the status code must be 200
-        And the response should be ""
+        And the response should be "6"
