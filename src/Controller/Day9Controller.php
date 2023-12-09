@@ -40,6 +40,12 @@ class Day9Controller extends AbstractController
     {
         $lines = $this->inputReader->getInput($file . '.txt');
 
-        return new JsonResponse('', Response::HTTP_NOT_ACCEPTABLE);
+        $sumOfExtrapolatedValues = 0;
+        $histories = $this->day9services->parseHistories($lines);
+        foreach ($histories as $history) {
+            $sumOfExtrapolatedValues += $this->day9services->calculatePreviousValueInHistory($history);
+        }
+
+        return new JsonResponse($sumOfExtrapolatedValues, Response::HTTP_OK);
     }
 }
