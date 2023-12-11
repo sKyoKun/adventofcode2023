@@ -58,6 +58,18 @@ class Day11Services
         return $columns;
     }
 
+    public function findEmptyLines(array $grid): array
+    {
+        $emptyLines = [];
+        foreach ($grid as $lineNumber => $line) {
+            if (false === array_search('#', $line)) {
+                $emptyLines[] = $lineNumber;
+            }
+        }
+
+        return $emptyLines;
+    }
+
     public function getHashPositions(array $grid): array
     {
         $hashPositions = [];
@@ -75,5 +87,16 @@ class Day11Services
     public function calculateLength(array $pointA, array $pointB): int
     {
         return abs($pointB[0]-$pointA[0]) + abs($pointB[1]-$pointA[1]);
+    }
+
+    public function calculateLengthWithExpansion(array $pointA, array $pointB, array $emptyLines, array $emptyColumns, int $expandValue): int
+    {
+        $linesBetweenAandB = range($pointA[0], $pointB[0]);
+        $columnsBetweenAandB = range($pointA[1], $pointB[1]);
+
+        $linesMultiplier = count(array_intersect($linesBetweenAandB, $emptyLines));
+        $columnsMultiplier = count(array_intersect($columnsBetweenAandB, $emptyColumns));
+
+        return abs($pointB[0]-$pointA[0])+($linesMultiplier*($expandValue-1)) + abs($pointB[1]-$pointA[1]) + ($columnsMultiplier*($expandValue-1));
     }
 }

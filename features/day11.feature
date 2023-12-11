@@ -11,4 +11,4 @@ Feature:
     Scenario: Check part2
         When I request "/day11/2/day11test" using HTTP method "GET"
         Then the status code must be 200
-        And the response should be ""
+        And the response should be "8410"
