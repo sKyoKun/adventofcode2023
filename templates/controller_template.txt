@@ -15,10 +15,7 @@ class Day[calendarDay]Controller extends AbstractController
     public function __construct(
         private InputReader $inputReader,
         private Day[calendarDay]Services $day[calendarDay]services
-    ){
-        $this->inputReader = $inputReader;
-        $this->day[calendarDay]services = $day[calendarDay]services;
-    }
+    ){}
 
     #[Route('/1/{file}', name: 'day[calendarDay]_1', defaults: ["file"=>"day[calendarDay]"])]
     public function part1(string $file): JsonResponse
