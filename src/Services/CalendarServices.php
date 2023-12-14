@@ -56,4 +56,19 @@ class CalendarServices
 
         return $finalArray;
     }
+
+    public function getReversedGrid(array $grid): array
+    {
+        $fullArrayGrid = [];
+        $reversedGrid = [];
+        foreach ($grid as $key => $line) {
+            $fullArrayGrid[$key] = str_split($line);
+        }
+
+        for ($i = 0; $i < count($fullArrayGrid[0]); ++$i) {
+            $reversedGrid[$i] = implode('', array_column($fullArrayGrid, $i));
+        }
+
+        return $reversedGrid;
+    }
 }
