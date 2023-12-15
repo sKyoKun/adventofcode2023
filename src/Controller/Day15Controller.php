@@ -35,7 +35,18 @@ class Day15Controller extends AbstractController
     public function part2(string $file): JsonResponse
     {
         $lines = $this->inputReader->getInput($file . '.txt');
+        $strings = $this->day15services->getStringList($lines);
+        $boxes = [];
+        foreach ($strings as $string) {
+            $lens = $this->day15services->parseString($string);
+            $this->day15services->putLensInBox($boxes, $lens);
+        }
 
-        return new JsonResponse('', Response::HTTP_NOT_ACCEPTABLE);
+        $totalLensPower = 0;
+        foreach ($boxes as $boxNumber => $box) {
+            $totalLensPower += $this->day15services->calculateBoxFocusingPower($boxNumber + 1, $box);
+        }
+
+        return new JsonResponse($totalLensPower, Response::HTTP_OK);
     }
 }
